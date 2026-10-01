@@ -40,7 +40,7 @@ class PengurusController extends Controller
 
         Pengurus::create($validated);
 
-        return redirect()->route('pengurus.index');
+        return redirect()->route('pengurus.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function edit(string $id)
@@ -76,7 +76,7 @@ class PengurusController extends Controller
 
         $pengurus->update($validated);
 
-        return redirect()->route('pengurus.index');
+        return redirect()->route('pengurus.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -89,6 +89,6 @@ class PengurusController extends Controller
 
         $pengurus->delete();
 
-        return redirect()->route('pengurus.index');
+        return redirect()->route('pengurus.index')->with('success', 'Data berhasil dihapus.');
     }
 }

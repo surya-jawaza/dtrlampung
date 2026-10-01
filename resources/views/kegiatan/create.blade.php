@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Kegiatan</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Tambah Kegiatan')
+
+@section('content')
+
+<div class="form-container">
 
     <h1>Tambah Kegiatan</h1>
 
     @if ($errors->any())
-        <div style="color: red; margin-bottom: 20px;">
+        <div class="error-box">
             <strong>Ada data yang belum benar:</strong>
 
             <ul>
@@ -22,156 +23,165 @@
     <form action="{{ route('kegiatan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <p>
-            <label>Judul Kegiatan</label><br>
+        <div class="form-group">
+            <label for="judul_kegiatan">Judul Kegiatan</label>
             <input
                 type="text"
                 name="judul_kegiatan"
+                id="judul_kegiatan"
                 value="{{ old('judul_kegiatan') }}"
+                required
             >
-        </p>
+        </div>
 
-        <p>
-            <label>Kategori</label><br>
-            <select name="kategori">
-                <option value="">-- Pilih Kategori --</option>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="kategori">Kategori</label>
+                <select name="kategori" id="kategori" required>
+                    <option value="">-- Pilih Kategori --</option>
 
-                <option value="Pendidikan"
-                    {{ old('kategori') == 'Pendidikan' ? 'selected' : '' }}>
-                    Pendidikan
-                </option>
+                    @foreach (['Pendidikan', 'Keagamaan', 'Sosial', 'Lainnya'] as $kategori)
+                        <option value="{{ $kategori }}" {{ old('kategori') == $kategori ? 'selected' : '' }}>
+                            {{ $kategori }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-                <option value="Keagamaan"
-                    {{ old('kategori') == 'Keagamaan' ? 'selected' : '' }}>
-                    Keagamaan
-                </option>
+            <div class="form-group">
+                <label for="jumlah_peserta">Jumlah Peserta</label>
+                <input
+                    type="number"
+                    name="jumlah_peserta"
+                    id="jumlah_peserta"
+                    min="0"
+                    value="{{ old('jumlah_peserta') }}"
+                    required
+                >
+            </div>
+        </div>
 
-                <option value="Sosial"
-                    {{ old('kategori') == 'Sosial' ? 'selected' : '' }}>
-                    Sosial
-                </option>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input
+                    type="date"
+                    name="tanggal"
+                    id="tanggal"
+                    value="{{ old('tanggal') }}"
+                    required
+                >
+            </div>
 
-                <option value="Lainnya"
-                    {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>
-                    Lainnya
-                </option>
-            </select>
-        </p>
+            <div class="form-group">
+                <label for="waktu">Waktu</label>
+                <input
+                    type="text"
+                    name="waktu"
+                    id="waktu"
+                    placeholder="Contoh: 08.00 - 12.00"
+                    value="{{ old('waktu') }}"
+                    required
+                >
+            </div>
+        </div>
 
-        <p>
-            <label>Tanggal</label><br>
-            <input
-                type="date"
-                name="tanggal"
-                value="{{ old('tanggal') }}"
-            >
-        </p>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="lokasi">Lokasi</label>
+                <input
+                    type="text"
+                    name="lokasi"
+                    id="lokasi"
+                    value="{{ old('lokasi') }}"
+                    required
+                >
+            </div>
 
-        <p>
-            <label>Waktu</label><br>
-            <input
-                type="text"
-                name="waktu"
-                placeholder="Contoh: 08.00 - 12.00"
-                value="{{ old('waktu') }}"
-            >
-        </p>
-
-        <p>
-            <label>Lokasi</label><br>
-            <input
-                type="text"
-                name="lokasi"
-                value="{{ old('lokasi') }}"
-            >
-        </p>
-
-        <p>
-            <label>Penanggung Jawab</label><br>
-            <input
-                type="text"
-                name="penanggung_jawab"
-                value="{{ old('penanggung_jawab') }}"
-            >
-        </p>
-
-        <p>
-            <label>Jumlah Peserta</label><br>
-            <input
-                type="number"
-                name="jumlah_peserta"
-                min="0"
-                value="{{ old('jumlah_peserta') }}"
-            >
-        </p>
-
-        <hr>
+            <div class="form-group">
+                <label for="penanggung_jawab">Penanggung Jawab</label>
+                <input
+                    type="text"
+                    name="penanggung_jawab"
+                    id="penanggung_jawab"
+                    value="{{ old('penanggung_jawab') }}"
+                    required
+                >
+            </div>
+        </div>
 
         <h3>Isi Artikel</h3>
 
-        <p>
-            <label>Foto Utama</label><br>
-            <input type="file" name="foto_utama" accept="image/*">
-        </p>
+        <div class="form-group">
+            <label for="foto_utama">Foto Utama</label>
+            <input type="file" name="foto_utama" id="foto_utama" accept="image/*">
+            <div class="file-info">Format gambar, maksimal 2 MB.</div>
+        </div>
 
-        <p>
-            <label>Ringkasan</label><br>
+        <div class="form-group">
+            <label for="ringkasan">Ringkasan</label>
             <textarea
                 name="ringkasan"
+                id="ringkasan"
                 rows="4"
-                cols="50"
+                required
             >{{ old('ringkasan') }}</textarea>
-        </p>
+        </div>
 
-        <p>
-            <label>Isi Kegiatan</label><br>
+        <div class="form-group">
+            <label for="isi_kegiatan">Isi Kegiatan</label>
             <textarea
                 name="isi_kegiatan"
+                id="isi_kegiatan"
                 rows="10"
-                cols="50"
+                required
             >{{ old('isi_kegiatan') }}</textarea>
-        </p>
+        </div>
 
-        <p>
-            <label>Dokumentasi</label><br>
+        <div class="form-group">
+            <label for="dokumentasi">Dokumentasi</label>
             <input
                 type="file"
                 name="dokumentasi[]"
+                id="dokumentasi"
                 accept="image/*"
                 multiple
             >
-        </p>
+            <div class="file-info">Bisa pilih lebih dari satu foto, masing-masing maksimal 2 MB.</div>
+        </div>
 
-        <p>
-            <label>Link Terkait</label><br>
+        <div class="form-group">
+            <label for="link_terkait">Link Terkait</label>
             <input
                 type="url"
                 name="link_terkait"
+                id="link_terkait"
                 placeholder="https://..."
                 value="{{ old('link_terkait') }}"
             >
-        </p>
+        </div>
 
-        <p>
-            <label>Keterangan</label><br>
+        <div class="form-group">
+            <label for="keterangan">Keterangan</label>
             <textarea
                 name="keterangan"
+                id="keterangan"
                 rows="4"
-                cols="50"
             >{{ old('keterangan') }}</textarea>
-        </p>
+        </div>
 
-        <button type="submit">
-            Simpan Kegiatan
-        </button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-simpan">
+                Simpan Kegiatan
+            </button>
+
+            <a href="{{ route('kegiatan.index') }}" class="btn btn-kembali">
+                Kembali
+            </a>
+        </div>
 
     </form>
 
-    <br>
+</div>
 
-    <a href="{{ route('kegiatan.index') }}">
-        ← Kembali
-    </a>
-
-</body>
-</html>
+@endsection

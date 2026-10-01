@@ -317,11 +317,16 @@
     padding-left: 7%;
     padding-right: 7%;
 
-    padding-top: 330px;
-    padding-bottom: 100px;
+    padding-top: 110px;
+    padding-bottom: 20vh;
 
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.hero-text {
+    max-width: 820px;
+    will-change: transform, opacity;
 }
 
 
@@ -330,15 +335,25 @@
 ========================= */
 
 .hero-label {
-    margin-bottom: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
 
-    font-size: 15px;
+    margin: 0 0 20px;
 
+    font-size: 13px;
     font-weight: 800;
-
-    letter-spacing: 7px;
+    letter-spacing: 5px;
 
     color: #172554;
+}
+
+.hero-label::before {
+    content: "";
+    width: 36px;
+    height: 3px;
+    border-radius: 3px;
+    background: #ffc50b;
 }
 
 
@@ -347,7 +362,7 @@
 ========================= */
 
 .hero h1 {
-    margin: 0 0 24px;
+    margin: 0 0 22px;
     max-width: 1000px;
 
     font-size: clamp(48px, 5vw, 76px);
@@ -361,7 +376,7 @@
 .hero h1 span {
     display: block;
 
-    margin-top: 2px;
+    margin-top: 10px;
 
     font-size: clamp(24px, 2.5vw, 38px);
     line-height: 1.05;
@@ -377,11 +392,11 @@
 ========================= */
 
 .hero-content p {
-    max-width: 600px;
+    max-width: 560px;
 
-    margin: 0 0 30px;
+    margin: 0 0 32px;
 
-    font-size: 19px;
+    font-size: 18px;
 
     line-height: 1.55;
 
@@ -508,8 +523,8 @@
         padding-left: 6%;
         padding-right: 6%;
 
-        padding-top: 390px;
-        padding-bottom: 60px;
+        padding-top: 100px;
+        padding-bottom: 14vh;
     }
 
     .hero-label {
@@ -535,6 +550,107 @@
 
     .hero-actions {
         flex-wrap: wrap;
+    }
+
+}
+
+
+/* =========================
+   ANIMASI HERO (SAAT HALAMAN DIBUKA)
+========================= */
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        translate: 0 30px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes heroZoomOut {
+    from {
+        scale: 1.08;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+.hero-image img {
+    animation: heroZoomOut 1.6s cubic-bezier(.22, 1, .36, 1) both;
+    will-change: transform;
+}
+
+.hero-text > * {
+    animation: heroFadeUp .9s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.hero-text > *:nth-child(1) { animation-delay: .15s; }
+.hero-text > *:nth-child(2) { animation-delay: .3s; }
+.hero-text > *:nth-child(3) { animation-delay: .45s; }
+.hero-text > *:nth-child(4) { animation-delay: .6s; }
+
+
+/* =========================
+   ANIMASI SAAT DI-SCROLL
+========================= */
+
+/*
+ * Selector dobel (.reveal.reveal) supaya tidak tertimpa
+ * transition hover milik .program-card / .news-card.
+ */
+.reveal.reveal {
+    opacity: 0;
+    translate: 0 40px;
+    scale: .97;
+    will-change: opacity, translate, scale;
+    transition:
+        opacity 1.1s cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0s),
+        translate 1.1s cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0s),
+        scale 1.1s cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0s),
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.reveal.reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+}
+
+/* Foto di dalam kartu ikut zoom-out pelan saat muncul */
+.reveal .program-card-image img,
+.reveal .news-image img {
+    scale: 1.15;
+    transition:
+        transform .5s ease,
+        scale 1.6s cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible .program-card-image img,
+.reveal.is-visible .news-image img {
+    scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-image img,
+    .hero-text > * {
+        animation: none;
+    }
+
+    .reveal.reveal,
+    .reveal .program-card-image img,
+    .reveal .news-image img {
+        opacity: 1;
+        translate: none;
+        scale: none;
+        transition: none;
     }
 
 }
@@ -724,23 +840,6 @@
 
 .who-card-bottom strong {
     font-weight: 800;
-}
-
-
-/* =========================
-   SLIDE IN FROM BOTTOM
-========================= */
-
-.reveal-bottom {
-    opacity: 1;
-    transform: translateY(80px);
-    will-change: transform;
-}
-
-/* DELAY CARD KANAN */
-
-.who-card.reveal-bottom {
-    transition-delay: .15s;
 }
 
 
@@ -1434,74 +1533,6 @@
 
 
 
-        /* ========================================
-           KOLABORASI
-        ======================================== */
-
-        .collaboration-section {
-            min-height: 70vh;
-
-            padding: 120px 7%;
-
-            background: #fff8df;
-
-            display: flex;
-
-            align-items: center;
-        }
-
-
-        .collaboration-container {
-            width: 100%;
-
-            max-width: 1250px;
-
-            margin: 0 auto;
-        }
-
-
-        .collaboration-section h2 {
-            margin-bottom: 25px;
-
-            font-size: clamp(
-                45px,
-                6vw,
-                75px
-            );
-
-            letter-spacing: -3px;
-        }
-
-
-        .collaboration-section p {
-            max-width: 650px;
-
-            margin-bottom: 30px;
-
-            font-size: 18px;
-
-            line-height: 1.8;
-        }
-
-
-        .collaboration-button {
-            display: inline-block;
-
-            padding: 14px 22px;
-
-            border-radius: 11px;
-
-            background: #172554;
-
-            color: white;
-
-            text-decoration: none;
-
-            font-weight: 700;
-        }
-
-
-
   /* =========================
    HUBUNGI KAMI
 ========================= */
@@ -1780,6 +1811,11 @@
             }
 
 
+            .hero h1 span {
+                white-space: normal;
+            }
+
+
             .hero-description {
                 font-size: 15px;
 
@@ -1853,16 +1889,6 @@
             /* TRAINING */
 
             .training-section {
-                padding: 90px 7%;
-            }
-
-
-
-            /* COLLABORATION */
-
-            .collaboration-section {
-                min-height: auto;
-
                 padding: 90px 7%;
             }
 
@@ -1981,19 +2007,15 @@
 
             <div class="hero-text">
 
-                
+                <div class="hero-label">DTR LAMPUNG</div>
 
-
-              <h1>
-    SELAMAT DATANG
-    <span>Di Laman Resmi DTR LAMPUNG</span>
-</h1>
-
-
-
+                <h1>
+                    SELAMAT DATANG
+                    <span>Di Laman Resmi DTR LAMPUNG</span>
+                </h1>
 
                 <p class="hero-description">
-                    Ruang belajar dan berlatih bersma untuk seluruh masyarakat pelajar.
+                    Ruang belajar dan berlatih bersama untuk seluruh masyarakat pelajar.
                 </p>
 
 
@@ -2056,7 +2078,7 @@
     <div class="who-container">
 
         <!-- BAGIAN KIRI -->
-        <div class="who-left reveal-bottom">
+        <div class="who-left">
 
             <h2>WHO WE ARE?</h2>
 
@@ -2079,7 +2101,7 @@
 
 
         <!-- BAGIAN KANAN -->
-        <div class="who-card reveal-bottom">
+        <div class="who-card">
 
             <div class="who-card-top">
                 <div class="who-card-label">
@@ -2403,45 +2425,6 @@
 
 
     <!-- ========================================
-         KOLABORASI
-    ========================================= -->
-
-    <section
-        id="kolaborasi"
-        class="collaboration-section"
-    >
-
-        <div class="collaboration-container">
-
-            <h2>
-                KOLABORASI
-            </h2>
-
-
-            <p>
-                DTR Lampung terbuka untuk berbagai bentuk
-                kolaborasi, partnership, dan media partner
-                dalam kegiatan yang memberikan manfaat
-                bagi generasi muda.
-            </p>
-
-
-            <a
-    href="https:#"
-    class="collaboration-button"
-    target="_blank"
-    rel="noopener noreferrer"
->
-    Partnership & Media Partner →
-</a>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
          HUBUNGI KAMI
     ========================================= -->
 
@@ -2520,44 +2503,87 @@
 
 
 
- <script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    const elements = document.querySelectorAll('.reveal-bottom');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function updateScrollAnimation() {
 
-        const windowHeight = window.innerHeight;
+    /*
+     * ANIMASI MUNCUL SAAT DI-SCROLL
+     * Elemen diberi class .reveal lewat JS, jadi kalau JS mati
+     * kontennya tetap tampil normal.
+     */
+    const revealGroups = [
+        '.who-left, .who-card',
+        '.program-heading',
+        '.program-card',
+        '.news-heading',
+        '.news-card',
+        '.cta-container',
+        '.contact-container',
+    ];
 
-        elements.forEach(element => {
+    if (!reduceMotion && 'IntersectionObserver' in window) {
 
-            const rect = element.getBoundingClientRect();
-
-            const start = windowHeight * 0.85;
-            const end = windowHeight * 0.45;
-
-            let progress = (start - rect.top) / (start - end);
-
-            progress = Math.max(0, Math.min(1, progress));
-
-            /*
-             * Smooth easing
-             */
-            const eased = 1 - Math.pow(1 - progress, 3);
-
-            /*
-             * Gerakan hanya 35px
-             */
-            const moveY = 35 * (1 - eased);
-
-            element.style.transform =
-                `translate3d(0, ${moveY}px, 0)`;
+        const observer = new IntersectionObserver(function (entries) {
+            // Elemen yang masuk layar bersamaan muncul bergantian
+            entries
+                .filter(function (entry) { return entry.isIntersecting; })
+                .forEach(function (entry, index) {
+                    entry.target.style.setProperty('--reveal-delay', (index * 0.15) + 's');
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -60px 0px',
         });
 
-        requestAnimationFrame(updateScrollAnimation);
+        revealGroups.forEach(function (selector) {
+            document.querySelectorAll(selector).forEach(function (element) {
+                element.classList.add('reveal');
+                observer.observe(element);
+            });
+        });
     }
 
-    updateScrollAnimation();
+
+    /*
+     * PARALLAX HERO
+     * Foto bergerak lebih lambat dan teks memudar saat di-scroll ke bawah.
+     */
+    const hero = document.querySelector('.hero');
+    const heroImage = document.querySelector('.hero-image img');
+    const heroText = document.querySelector('.hero-text');
+
+    if (reduceMotion || !hero || !heroImage || !heroText) return;
+
+    let ticking = false;
+
+    function updateHero() {
+        const scrollY = window.scrollY;
+        const heroHeight = hero.offsetHeight;
+
+        if (scrollY <= heroHeight) {
+            const progress = scrollY / heroHeight;
+
+            heroImage.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
+            heroText.style.transform = `translate3d(0, ${scrollY * -0.15}px, 0)`;
+            heroText.style.opacity = Math.max(0, 1 - progress * 1.6);
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(updateHero);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateHero();
 
 });
 </script>

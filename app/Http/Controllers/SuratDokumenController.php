@@ -37,7 +37,7 @@ class SuratDokumenController extends Controller
 
         SuratDokumen::create($validated);
 
-        return redirect()->route('surat-dokumen.index');
+        return redirect()->route('surat-dokumen.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -79,7 +79,7 @@ class SuratDokumenController extends Controller
 
         $suratDokumen->update($validated);
 
-        return redirect()->route('surat-dokumen.index');
+        return redirect()->route('surat-dokumen.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -92,6 +92,6 @@ class SuratDokumenController extends Controller
 
         $suratDokumen->delete();
 
-        return redirect()->route('surat-dokumen.index');
+        return redirect()->route('surat-dokumen.index')->with('success', 'Data berhasil dihapus.');
     }
 }

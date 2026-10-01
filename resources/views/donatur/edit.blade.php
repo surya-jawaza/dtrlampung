@@ -4,73 +4,6 @@
 
 @section('content')
 
-<style>
-    .form-container {
-        max-width: 700px;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .form-container h1 {
-        margin-top: 0;
-        margin-bottom: 25px;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-    }
-
-    input,
-    select,
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    textarea {
-        resize: vertical;
-    }
-
-    .btn {
-        padding: 10px 18px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .btn-simpan {
-        background: #2563eb;
-        color: white;
-    }
-
-    .btn-kembali {
-        background: #ddd;
-        color: #333;
-        margin-left: 8px;
-    }
-
-    .error-box {
-        background: #ffe5e5;
-        color: #b00000;
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-    }
-</style>
-
 <div class="form-container">
 
     <h1>Edit Donatur</h1>
@@ -206,13 +139,15 @@
             >{{ old('keterangan', $donatur->keterangan) }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-simpan">
-            Simpan Perubahan
-        </button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-simpan">
+                Simpan Perubahan
+            </button>
 
-        <a href="{{ route('donatur.index') }}" class="btn btn-kembali">
-            Kembali
-        </a>
+            <a href="{{ route('donatur.index') }}" class="btn btn-kembali">
+                Kembali
+            </a>
+        </div>
 
     </form>
 

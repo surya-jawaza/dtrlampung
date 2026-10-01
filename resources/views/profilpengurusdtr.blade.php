@@ -105,6 +105,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 28px;
         }
 
         .slider-window {
@@ -135,8 +136,9 @@
         }
 
         .slider-button {
-            position: absolute;
+            position: relative;
             z-index: 5;
+            flex-shrink: 0;
 
             width: 52px;
             height: 52px;
@@ -161,14 +163,6 @@
             background: #ffc50b;
             color: #172554;
             transform: scale(1.05);
-        }
-
-        .slider-prev {
-            left: 0;
-        }
-
-        .slider-next {
-            right: 0;
         }
 
         .dots {
@@ -226,17 +220,18 @@
             }
 
             .slider-button {
+                position: absolute;
                 width: 42px;
                 height: 42px;
                 font-size: 19px;
             }
 
             .slider-prev {
-                left: -5px;
+                left: 8px;
             }
 
             .slider-next {
-                right: -5px;
+                right: 8px;
             }
         }
     </style>
@@ -269,9 +264,11 @@
 
             <div class="slider">
 
-                <button class="slider-button slider-prev" onclick="prevSlide()">
-                    ←
-                </button>
+                @if ($pengurus->count() > 1)
+                    <button type="button" class="slider-button slider-prev" onclick="prevSlide()" aria-label="Sebelumnya">
+                        ←
+                    </button>
+                @endif
 
 
                 <div class="slider-window" id="sliderWindow">
@@ -300,14 +297,16 @@
                 </div>
 
 
-                <button class="slider-button slider-next" onclick="nextSlide()">
-                    →
-                </button>
+                @if ($pengurus->count() > 1)
+                    <button type="button" class="slider-button slider-next" onclick="nextSlide()" aria-label="Berikutnya">
+                        →
+                    </button>
+                @endif
 
             </div>
 
 
-            <div class="dots">
+            <div class="dots" @if ($pengurus->count() < 2) hidden @endif>
 
                 @foreach ($pengurus as $index => $item)
 

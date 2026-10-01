@@ -59,7 +59,7 @@ class KegiatanController extends Controller
 
         Kegiatan::create($validated);
 
-        return redirect('/kegiatan');
+        return redirect('/kegiatan')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -127,7 +127,7 @@ class KegiatanController extends Controller
 
         $kegiatan->update($validated);
 
-        return redirect('/kegiatan');
+        return redirect('/kegiatan')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -146,6 +146,6 @@ class KegiatanController extends Controller
 
         $kegiatan->delete();
 
-        return redirect('/kegiatan');
+        return redirect('/kegiatan')->with('success', 'Data berhasil dihapus.');
     }
 }

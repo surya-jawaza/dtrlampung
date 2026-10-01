@@ -4,92 +4,6 @@
 
 @section('content')
 
-<style>
-    .form-container {
-        max-width: 700px;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .form-container h1 {
-        margin-top: 0;
-        margin-bottom: 25px;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-    }
-
-    input,
-    select,
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    textarea {
-        resize: vertical;
-    }
-
-    .btn {
-        padding: 10px 18px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .btn-simpan {
-        background: #2563eb;
-        color: white;
-    }
-
-    .btn-kembali {
-        background: #ddd;
-        color: #333;
-        margin-left: 8px;
-    }
-
-    .btn-lihat {
-        background: #16a34a;
-        color: white;
-        margin-top: 8px;
-    }
-
-    .error-box {
-        background: #ffe5e5;
-        color: #b00000;
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-    }
-
-    .current-file {
-        background: #f8f9fa;
-        padding: 12px;
-        border-radius: 5px;
-        margin-top: 8px;
-    }
-
-    .file-info {
-        margin-top: 6px;
-        color: #666;
-        font-size: 13px;
-    }
-</style>
-
 <div class="form-container">
 
     <h1>Edit Surat & Dokumen</h1>
@@ -210,12 +124,10 @@
             <div class="current-file">
                 {{ basename($suratDokumen->file_dokumen) }}
 
-                <br>
-
                 <a
                     href="{{ asset('storage/' . $suratDokumen->file_dokumen) }}"
                     target="_blank"
-                    class="btn btn-lihat"
+                    class="btn-lihat"
                 >
                     Lihat PDF
                 </a>
@@ -239,16 +151,18 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-simpan">
-            Simpan Perubahan
-        </button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-simpan">
+                Simpan Perubahan
+            </button>
 
-        <a
-            href="{{ route('surat-dokumen.index') }}"
-            class="btn btn-kembali"
-        >
-            Kembali
-        </a>
+            <a
+                href="{{ route('surat-dokumen.index') }}"
+                class="btn btn-kembali"
+            >
+                Kembali
+            </a>
+        </div>
 
     </form>
 

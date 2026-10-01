@@ -34,12 +34,10 @@ class DashboardController extends Controller
         // =========================
         $tahunSekarang = Carbon::now()->year;
 
+        // Dikelompokkan di PHP agar jalan di MySQL maupun SQLite
         $anggotaPerBulan = Anggota::whereYear('created_at', $tahunSekarang)
-            ->selectRaw('MONTH(created_at) as bulan, COUNT(*) as jumlah')
-            ->groupByRaw('MONTH(created_at)')
-            ->orderBy('bulan')
-            ->get()
-            ->keyBy('bulan');
+            ->pluck('created_at')
+            ->countBy(fn ($tanggal) => $tanggal->month);
 
         $namaBulan = [
             1 => 'Jan',
@@ -59,7 +57,7 @@ class DashboardController extends Controller
         $penambahanAnggota = [];
 
         for ($bulan = 1; $bulan <= 12; $bulan++) {
-            $jumlahBaru = $anggotaPerBulan->get($bulan)->jumlah ?? 0;
+            $jumlahBaru = $anggotaPerBulan->get($bulan, 0);
 
             $penambahanAnggota[] = [
                 'bulan' => $namaBulan[$bulan],

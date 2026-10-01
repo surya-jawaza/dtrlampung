@@ -34,7 +34,7 @@ class DonaturController extends Controller
 
         Donatur::create($validated);
 
-        return redirect()->route('donatur.index');
+        return redirect()->route('donatur.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function edit(string $id)
@@ -61,7 +61,7 @@ class DonaturController extends Controller
 
         $donatur->update($validated);
 
-        return redirect()->route('donatur.index');
+        return redirect()->route('donatur.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -70,6 +70,6 @@ class DonaturController extends Controller
 
         $donatur->delete();
 
-        return redirect()->route('donatur.index');
+        return redirect()->route('donatur.index')->with('success', 'Data berhasil dihapus.');
     }
 }

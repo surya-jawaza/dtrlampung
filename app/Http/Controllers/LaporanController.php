@@ -36,7 +36,7 @@ class LaporanController extends Controller
 
         Laporan::create($validated);
 
-        return redirect()->route('laporan.index');
+        return redirect()->route('laporan.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -77,7 +77,7 @@ class LaporanController extends Controller
 
         $laporan->update($validated);
 
-        return redirect()->route('laporan.index');
+        return redirect()->route('laporan.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -90,6 +90,6 @@ class LaporanController extends Controller
 
         $laporan->delete();
 
-        return redirect()->route('laporan.index');
+        return redirect()->route('laporan.index')->with('success', 'Data berhasil dihapus.');
     }
 }

@@ -35,7 +35,7 @@ class InventarisController extends Controller
 
         Inventaris::create($validated);
 
-        return redirect()->route('inventaris.index');
+        return redirect()->route('inventaris.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -70,7 +70,7 @@ class InventarisController extends Controller
 
         $inventaris->update($validated);
 
-        return redirect()->route('inventaris.index');
+        return redirect()->route('inventaris.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -79,6 +79,6 @@ class InventarisController extends Controller
 
         $inventaris->delete();
 
-        return redirect()->route('inventaris.index');
+        return redirect()->route('inventaris.index')->with('success', 'Data berhasil dihapus.');
     }
 }

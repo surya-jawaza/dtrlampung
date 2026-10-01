@@ -49,7 +49,7 @@ class AnggotaController extends Controller
 }
     Anggota::create($validated);
 
-    return redirect()->route('anggota.index');
+    return redirect()->route('anggota.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
@@ -103,7 +103,7 @@ class AnggotaController extends Controller
 
         $anggota->update($validated);
 
-    return redirect()->route('anggota.index');
+    return redirect()->route('anggota.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -117,6 +117,6 @@ if ($anggota->foto) {
 }
     $anggota->delete();
     
-    return redirect()->route('anggota.index');
+    return redirect()->route('anggota.index')->with('success', 'Data berhasil dihapus.');
     }
 }
